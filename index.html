@@ -23,62 +23,7 @@
 </head>
 
 <body>
-    <!-- Firebase -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
 
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyBUZJmCcVs5W80ixXUT7N74mtziMkb1IlA",
-            authDomain: "chaopraya-vet.firebaseapp.com",
-            databaseURL: "https://chaopraya-vet-default-rtdb.firebaseio.com",
-            projectId: "chaopraya-vet",
-            storageBucket: "chaopraya-vet.appspot.com",
-            messagingSenderId: "477585373518",
-            appId: "1:477585373518:web:8e7d2e46a4de04dd14061f",
-            measurementId: "G-1085ZG3BEM"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-
-        var messagesRef = firebase.database()
-            .ref('customer Data');
-         
-        document.getElementById('contactForm')
-            .addEventListener('submit', submitForm);
- 
-        function submitForm(e) {
-            e.preventDefault();
- 
-            // Get values
-            var name = getInputVal('name');
-            var email = getInputVal('email');
- 
-            saveMessage(name, email);
-            document.getElementById('contactForm').reset();
-        }
- 
-        // Function to get get form values
-        function getInputVal(id) {
-            return document.getElementById(id).value;
-        }
- 
-        // Save message to firebase
-        function saveMessage(name, email) {
-            var newMessageRef = messagesRef.push();
-            newMessageRef.set({
-                name: name,
-                email: email,
-            });
-        }
-    </script>
 
     <nav class="navbar navbar-dark navbar-expand-sm bg-primary fixed-top">
         <div class="container">
@@ -129,38 +74,113 @@
                                 <label for="exampleFormControlInput1">
                                     Enter Your Name
                                 </label>
-                                 
-                                <input type="text" class="form-control"
-                                id="name" placeholder="Enter your name">
+
+                                <input type="text" class="form-control" id="nameSubmit" placeholder="Enter your name">
                             </div>
-             
+
                             <div class="form-group">
                                 <label for="exampleFormControlInput1">
                                     Email address
                                 </label>
-                                 
-                                <input type="email" class="form-control"
-                                id="email" placeholder="name@example.com">
+
+                                <input type="email" class="form-control" id="emailSubmit"
+                                    placeholder="name@example.com">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary"
-                            style="margin-left: 15px; margin-top: 10px">
+                        <button type="submit" class="btn btn-primary" style="margin-left: 15px; margin-top: 10px">
                             Submit
                         </button>
+
                     </div>
                 </form>
+            </div>
+            <div class="col-12">
+                <form class="container" id="getForm">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput1">
+                                    Enter Your Name
+                                </label>
 
+                                <input type="text" class="form-control" id="nameGet" placeholder="Enter your name">
+                            </div>
+
+                            <button id="btn-get" class="btn btn-success" style="margin-left: 15px; margin-top: 10px">
+                                Get
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12">
+                <form class="container" id="delForm">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput2">
+                                    Enter Your Name
+                                </label>
+
+                                <input type="text" class="form-control" id="nameDel" placeholder="Enter your name">
+                            </div>
+
+                            <button id="btn-del" class="btn btn-primary" style="margin-left: 15px; margin-top: 10px">
+                                Del
+                            </button>
+
+
+                        </div>
+                    </div>
+                </form>
             </div>
 
+            <div class="col-12">
+                <form class="container" id="searchForm">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="exampleFormControlInput3">
+                                    กรุณาใส่เลขบัตรประชาชน
+                                </label>
+
+                                <input type="text" class="form-control" id="idSearch" placeholder="เลขบัตรประชาชน">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleFormControlInput3">
+                                    โปรดระบุเลขเครื่องยนต์
+                                </label>
+
+                                <input type="text" class="form-control" id="chassisSearch" placeholder="เลขเครื่องยนต์">
+                            </div>
+
+                            <button id="btn-search" class="btn btn-primary" style="margin-left: 15px; margin-top: 10px">
+                                ค้นหา
+                            </button>
 
 
+                        </div>
+                    </div>
+                </form>
+            </div>
 
         </div>
 
+        <div class="row row-content align-items-top">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <p id="t1">jjjjj</p>
 
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
     </div>
-
 
 
     <footer class="footer">
@@ -238,9 +258,169 @@
 
     </script>
 
-    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
+        import { getDatabase, set, get, ref, push, child, onValue, remove, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
+        //import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-analytics.js";
 
-    
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyBUZJmCcVs5W80ixXUT7N74mtziMkb1IlA",
+            authDomain: "chaopraya-vet.firebaseapp.com",
+            databaseURL: "https://chaopraya-vet-default-rtdb.firebaseio.com",
+            projectId: "chaopraya-vet",
+            storageBucket: "chaopraya-vet.appspot.com",
+            messagingSenderId: "477585373518",
+            appId: "1:477585373518:web:8e7d2e46a4de04dd14061f",
+            //measurementId: "G-1085ZG3BEM"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+
+        document.getElementById('contactForm').addEventListener('submit', submitForm);
+        document.getElementById('getForm').addEventListener('submit', getMessage);
+        document.getElementById('delForm').addEventListener('submit', delNode);
+
+        document.getElementById('searchForm').addEventListener('submit', searchInfo);
+
+        function submitForm(e) {
+            e.preventDefault();
+
+            // Get values
+            var name = getInputVal('nameSubmit');
+            var email = getInputVal('emailSubmit');
+
+
+            saveMessage(name, email);
+            document.getElementById('contactForm').reset();
+        }
+
+        // Function to get get form values
+        function getInputVal(id) {
+            return document.getElementById(id).value;
+        }
+
+        // Save message to firebase
+        function saveMessage(name, email) {
+
+            const userId = push(child(ref(database), 'customerData')).key;
+            set(ref(database, 'customerData/' + userId), {
+                name: name,
+                email: email,
+            });
+
+            alert("saved");
+        }
+
+        // get message from firebase
+
+        function getMessage(e) {
+            e.preventDefault();
+            //const Ref = ref(database, 'customerData/');
+            const Ref = ref(database, '0');
+            //const Ref = ref(database, 'customerData/');
+            alert('get');
+            onValue(Ref, (snapshot) => {
+                const data = snapshot.val();
+                const count = Object.keys(data).length;
+                alert(count);
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+                    //alert(childData.name + ", " + childData.email);
+                    alert(childKey + ", " + childData);
+                    console.log(childSnapshot.val());
+
+                });
+            }, {
+                onlyOnce: true
+            });
+
+        }
+
+        function delNode(e) {
+            e.preventDefault();
+            var name_to_delete = getInputVal('nameDel');
+            alert("name to delete = " + name_to_delete);
+            const Ref = ref(database, 'customerData/');
+            //const Ref = ref(database, 'customerData/');
+            var key_to_delete;
+
+            const test = query(Ref, orderByChild('name'), equalTo(name_to_delete));
+
+            alert(test);
+
+            onValue(test, (snapshot) => {
+                //console.log(Object.keys(snapshot.val()));
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    remove(ref(database, 'customerData/' + childKey));
+                })
+
+            });
+
+        }
+
+        function searchInfo(e) {
+            e.preventDefault();
+            let text = "Hello Dolly";
+            let text2 = "Hello Dolly2";
+            const element = document.getElementById("t1");
+            
+            //document.getElementById("t1").innerHTML = text;
+            element.innerHTML = "";
+
+            //e.preventDefault();
+            var id_to_search = getInputVal('idSearch');
+            const Ref = ref(database);
+            //const test = query(Ref, orderByChild('id'), equalTo(3140400276716));
+            const test = query(Ref, orderByChild('id'), equalTo(parseInt(id_to_search)));
+            //console.log(test);
+
+            onValue(test, (snapshot) => {
+                //console.log(Object.keys(snapshot.val()));
+                snapshot.forEach((childSnapshot) => {
+                    
+                        const childKey = childSnapshot.key;
+                        const childData = childSnapshot.val();
+                        console.log(childData);
+                        element.innerHTML += "<p>"+childData.initial+childData.name+"</p>";
+                        element.innerHTML += "<p>"+childData.id+"</p>";
+                        element.innerHTML += "<p>"+childData.model+"</p>";
+                        element.innerHTML += "<p>"+childData.chasisNumber+"</p>";
+                        element.innerHTML += "<p>"+childData.buyingDate+"</p>";
+                        element.innerHTML += "<p>"+childData.registrationNumber+"</p>";
+                        element.innerHTML += "<p>"+childData.taxDueDate+"</p>";
+                        element.innerHTML += "<p>"+childData.monthDueDate+"</p>";
+
+
+                   
+                    
+                })
+
+            });
+
+        }
+
+
+
+
+
+    </script>
+
+
+
+
 
 </body>
 
